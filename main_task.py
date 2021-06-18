@@ -62,6 +62,6 @@ if __name__ == "__main__":
                 break
             inferer.infer_sentence(sent, detect_entities=False)
     
-    if args.task == 'fewrel':
+    if args.task == 'semeval':
         fewrel = FewRel(args)
         meta_input, e1_e2_start, meta_labels, outputs = fewrel.evaluate()

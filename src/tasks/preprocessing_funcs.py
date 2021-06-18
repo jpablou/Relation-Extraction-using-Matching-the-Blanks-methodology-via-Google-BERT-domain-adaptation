@@ -32,10 +32,14 @@ def process_text(text, mode='train'):
         blank = text[4*i + 3]
         
         # check entries
-        if mode == 'train':
+        '''if mode == 'train':
             assert int(re.match("^\d+", sent)[0]) == (i + 1)
         else:
-            assert (int(re.match("^\d+", sent)[0]) - 8000) == (i + 1)
+            assert (int(re.match("^\d+", sent)[0]) - 8000) == (i + 1)'''
+        if mode == 'train':
+            assert re.search("^\d+", sent)
+        else:
+            assert re.search("^\d+", sent)
         assert re.match("^Comment", comment)
         assert len(blank) == 1
         

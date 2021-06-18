@@ -64,7 +64,7 @@ def evaluate_(output, labels, ignore_idx):
     o_labels = torch.softmax(output, dim=1).max(1)[1]
     l = labels.squeeze()[idxs]; o = o_labels[idxs]
 
-    if len(idxs) > 1:
+    if idxs.dim() > 1:
         acc = (l == o).sum().item()/len(idxs)
     else:
         acc = (l == o).sum().item()

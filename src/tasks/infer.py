@@ -24,6 +24,8 @@ logging.basicConfig(format='%(asctime)s [%(levelname)s]: %(message)s', \
                     datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
 logger = logging.getLogger('__file__')
 
+f= open("predicted_output.txt","w+")
+
 def load_pickle(filename):
     completeName = os.path.join("./data/",\
                                 filename)
@@ -205,8 +207,12 @@ class infer_from_trained(object):
             classification_logits = self.net(tokenized, token_type_ids=token_type_ids, attention_mask=attention_mask, Q=None,\
                                         e1_e2_start=e1_e2_start)
             predicted = torch.softmax(classification_logits, dim=1).max(1)[1].item()
+          
         print("Sentence: ", sentence)
         print("Predicted: ", self.rm.idx2rel[predicted].strip(), '\n')
+        f.write(str(sentence) + "\n")
+        f.write(str(self.rm.idx2rel[predicted].strip()) + "\n\n")
+        f.close()         
         return predicted
     
     def infer_sentence(self, sentence, detect_entities=False):
@@ -237,7 +243,7 @@ class FewRel(object):
             model_name = 'BERT'
             self.net = Model.from_pretrained(model, force_download=False, \
                                              model_size=args.model_size,\
-                                             task='fewrel')
+                                             task='semeval')
         elif self.args.model_no == 1:
             from ..model.ALBERT.modeling_albert import AlbertModel as Model
             from ..model.ALBERT.tokenization_albert import AlbertTokenizer as Tokenizer
@@ -246,7 +252,7 @@ class FewRel(object):
             model_name = 'ALBERT'
             self.net = Model.from_pretrained(model, force_download=False, \
                                              model_size=args.model_size,\
-                                             task='fewrel')
+                                             task='semeval')
         elif args.model_no == 2: # BioBert
             from ..model.BERT.modeling_bert import BertModel, BertConfig
             from ..model.BERT.tokenization_bert import BertTokenizer as Tokenizer
@@ -258,7 +264,7 @@ class FewRel(object):
                                             config=config,
                                             force_download=False, \
                                             model_size='bert-base-uncased',
-                                            task='fewrel')
+                                            task='semeval')
         
         if os.path.isfile('./data/%s_tokenizer.pkl' % model_name):
             self.tokenizer = load_pickle("%s_tokenizer.pkl" % model_name)
@@ -292,13 +298,13 @@ class FewRel(object):
             del checkpoint, pretrained_dict, model_dict
         
         logger.info("Loading Fewrel dataloaders...")
-        self.train_loader, _, self.train_length, _ = load_dataloaders(args)
+        self.train_loader, self.test_loader, self.train_length, _ = load_dataloaders(args)
         
     def evaluate(self):
         counts, hits = 0, 0
         logger.info("Evaluating...")
         with torch.no_grad():
-            for meta_input, e1_e2_start, meta_labels in tqdm(self.train_loader, total=len(self.train_loader)):
+            for meta_input, e1_e2_start, meta_labels in tqdm(self.test_loader, total=len(self.test_loader)):
                 attention_mask = (meta_input != self.pad_id).float()
                 token_type_ids = torch.zeros((meta_input.shape[0], meta_input.shape[1])).long()
         
