@@ -26,7 +26,7 @@ if __name__ == "__main__":
     parser.add_argument("--test_data", type=str, default='./data/SemEval2010_task8_all_data/SemEval2010_task8_testing_keys/TEST_FILE_FULL.TXT', \
                         help="test data .txt file path")
     parser.add_argument("--use_pretrained_blanks", type=int, default=0, help="0: Don't use pre-trained blanks model, 1: use pre-trained blanks model")
-    parser.add_argument("--num_classes", type=int, default=19, help='number of relation classes')
+    parser.add_argument("--num_classes", type=int, default=5, help='number of relation classes')
     parser.add_argument("--batch_size", type=int, default=32, help="Training batch size")
     parser.add_argument("--gradient_acc_steps", type=int, default=2, help="No. of steps of gradient accumulation")
     parser.add_argument("--max_norm", type=float, default=1.0, help="Clipped gradient norm")
@@ -62,6 +62,6 @@ if __name__ == "__main__":
                 break
             inferer.infer_sentence(sent, detect_entities=False)
     
-    if args.task == 'semeval':
-        fewrel = FewRel(args)
-        meta_input, e1_e2_start, meta_labels, outputs = fewrel.evaluate()
+    #if args.task == 'semeval':
+        #fewrel = FewRel(args)
+        #meta_input, e1_e2_start, meta_labels, outputs = fewrel.evaluate()

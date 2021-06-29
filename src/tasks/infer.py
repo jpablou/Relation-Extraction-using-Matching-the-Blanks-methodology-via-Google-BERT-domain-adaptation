@@ -210,9 +210,7 @@ class infer_from_trained(object):
           
         print("Sentence: ", sentence)
         print("Predicted: ", self.rm.idx2rel[predicted].strip(), '\n')
-        f.write(str(sentence) + "\n")
-        f.write(str(self.rm.idx2rel[predicted].strip()) + "\n\n")
-        f.close()         
+      
         return predicted
     
     def infer_sentence(self, sentence, detect_entities=False):
@@ -322,6 +320,29 @@ class FewRel(object):
                 if closest_idx == meta_labels[-1].item():
                     hits += 1
                 counts += 1
+            '''for meta_input in tqdm(self.test_loader, total=len(self.test_loader)):
+                
+                print('--- BIG ONES ---')
+                #print(meta_input)
+                attention_mask = (meta_input != self.pad_id).float()
+                token_type_ids = torch.zeros((meta_input.shape[0], meta_input.shape[1])).long()
+        
+                if self.cuda:
+                    meta_input = meta_input.cuda()
+                    attention_mask = attention_mask.cuda()
+                    token_type_ids = token_type_ids.cuda()
+
+            for e1_e2_start in tqdm(self.test_loader, total=len(self.test_loader)):    
+                outputs = self.net(meta_input, token_type_ids=token_type_ids, attention_mask=attention_mask, Q=None,\
+                                  e1_e2_start=e1_e2_start)
+                
+                matrix_product = torch.mm(outputs, outputs.T)
+                closest_idx = matrix_product[-1][:-1].argmax().cpu().item()
+            
+            for meta_labels in tqdm(self.test_loader, total=len(self.test_loader)):                
+                if closest_idx == meta_labels[-1].item():
+                    hits += 1
+                counts += 1 '''          
         
         print("Results (%d samples): %.3f %%" % (counts, (hits/counts)*100))
         return meta_input, e1_e2_start, meta_labels, outputs

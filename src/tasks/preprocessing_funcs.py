@@ -35,15 +35,21 @@ def process_text(text, mode='train'):
         '''if mode == 'train':
             assert int(re.match("^\d+", sent)[0]) == (i + 1)
         else:
-            assert (int(re.match("^\d+", sent)[0]) - 8000) == (i + 1)'''
+            assert (int(re.match("^\d+", sent)[0]) - 8000) == (i + 1)
+        '''
         if mode == 'train':
+            if not re.search("^\d+", sent):
+                print('sentence: ', sent, i, int(len(text)/4))
             assert re.search("^\d+", sent)
         else:
             assert re.search("^\d+", sent)
         assert re.match("^Comment", comment)
         assert len(blank) == 1
+        assert re.match("^Comment", comment)
+        assert len(blank) == 1
         
-        sent = re.findall("\"(.+)\"", sent)[0]
+        #sent = re.findall("\"(.+)\"", sent)[0]
+        sent = re.sub("^\d+\s+","", sent).strip()
         sent = re.sub('<e1>', '[E1]', sent)
         sent = re.sub('</e1>', '[/E1]', sent)
         sent = re.sub('<e2>', '[E2]', sent)
@@ -130,7 +136,7 @@ def get_e1e2_start(x, e1_id, e2_id):
                         [i for i, e in enumerate(x) if e == e2_id][0])
     except Exception as e:
         e1_e2_start = None
-        print(e)
+        #print(e)
     return e1_e2_start
 
 class semeval_dataset(Dataset):
