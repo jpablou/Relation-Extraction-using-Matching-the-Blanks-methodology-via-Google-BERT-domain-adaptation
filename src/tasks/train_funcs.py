@@ -57,7 +57,6 @@ def load_results(model_no=0):
         losses_per_epoch, accuracy_per_epoch, f1_per_epoch = [], [], []
     return losses_per_epoch, accuracy_per_epoch, f1_per_epoch
 
-
 def evaluate_(output, labels, ignore_idx):
     ### ignore index 0 (padding) when calculating accuracy
     idxs = (labels != ignore_idx).squeeze()
