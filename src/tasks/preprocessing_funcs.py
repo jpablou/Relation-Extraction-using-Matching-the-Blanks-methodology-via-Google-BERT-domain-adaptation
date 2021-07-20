@@ -144,14 +144,18 @@ class semeval_dataset(Dataset):
         self.e1_id = e1_id
         self.e2_id = e2_id
         self.df = df
-        logger.info("Tokenizing data...")
-        self.df['input'] = self.df.progress_apply(lambda x: tokenizer.encode(x['sents']),\
-                                                             axis=1)
-        
-        self.df['e1_e2_start'] = self.df.progress_apply(lambda x: get_e1e2_start(x['input'],\
-                                                       e1_id=self.e1_id, e2_id=self.e2_id), axis=1)
-        print("\nInvalid rows/total: %d/%d" % (df['e1_e2_start'].isnull().sum(), len(df)))
-        self.df.dropna(axis=0, inplace=True)
+        if os.path.exists('tokenized_data.pkl'):
+            self.df = pd.read_pickle('tokenized_data.pkl')
+        else:
+            logger.info("Tokenizing data...")
+            self.df['input'] = self.df.progress_apply(lambda x: tokenizer.encode(x['sents']),\
+                                                                 axis=1)
+            
+            self.df['e1_e2_start'] = self.df.progress_apply(lambda x: get_e1e2_start(x['input'],\
+                                                           e1_id=self.e1_id, e2_id=self.e2_id), axis=1)
+            print("\nInvalid rows/total: %d/%d" % (df['e1_e2_start'].isnull().sum(), len(df)))
+            self.df.dropna(axis=0, inplace=True)
+            self.df.to_pickle('tokenized_data.pkl')
     
     def __len__(self,):
         return len(self.df)
