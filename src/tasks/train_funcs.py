@@ -106,13 +106,13 @@ def evaluate_results(net, test_loader, pad_id, cuda):
     for key in sorted(results.keys()):
         logger.info("  %s = %s", key, str(results[key]))
 
-    logger.info("***** OUT_LABELS *****")
+    '''logger.info("***** OUT_LABELS *****")
     for o in out_labels:
         logger.info(o)        
 
     logger.info("***** TRUE_LABELS *****")
     for t in true_labels:
         logger.info(t)               
-    
+    '''
     return results
     
