@@ -105,6 +105,14 @@ def evaluate_results(net, test_loader, pad_id, cuda):
     logger.info("***** Eval results *****")
     for key in sorted(results.keys()):
         logger.info("  %s = %s", key, str(results[key]))
+
+    logger.info("***** OUT_LABELS *****")
+    for o in out_labels:
+        logger.info(o, end = ' ')        
+
+    logger.info("***** TRUE_LABELS *****")
+    for t in true_labels:
+        logger.info(t, end = ' ')               
     
     return results
     
