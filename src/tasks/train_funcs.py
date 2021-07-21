@@ -108,11 +108,11 @@ def evaluate_results(net, test_loader, pad_id, cuda):
 
     logger.info("***** OUT_LABELS *****")
     for o in out_labels:
-        logger.info(o, end = ' ')        
+        logger.info(o)        
 
     logger.info("***** TRUE_LABELS *****")
     for t in true_labels:
-        logger.info(t, end = ' ')               
+        logger.info(t)               
     
     return results
     
