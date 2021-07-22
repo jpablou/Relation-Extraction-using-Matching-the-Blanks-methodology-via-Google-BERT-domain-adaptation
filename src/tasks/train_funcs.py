@@ -76,8 +76,8 @@ def evaluate_results(net, test_loader, pad_id, cuda):
     logger.info("Evaluating test samples...")
     acc = 0; out_labels = []; true_labels = []
     net.eval()
-    f = open("evaluate_results.txt","w+")
-    f.write("test_loader length: " + len(test_loader))
+    #f = open("evaluate_results.txt","w+")
+    logger.info("test_loader length: " + str(len(test_loader)))
     with torch.no_grad():
         for i, data in tqdm(enumerate(test_loader), total=len(test_loader)):
             x, e1_e2_start, labels, _,_,_ = data
@@ -90,19 +90,19 @@ def evaluate_results(net, test_loader, pad_id, cuda):
                 attention_mask = attention_mask.cuda()
                 token_type_ids = token_type_ids.cuda()
 
-            f.write("labels length: " + len(labels))   
-            f.write("attention_mask length: " + len(attention_mask))   
-            f.write("token_type_ids length: " + len(token_type_ids))                    
+            logger.info("labels length: " + len(labels))   
+            logger.info("attention_mask length: " + str(len(attention_mask)))   
+            logger.info("token_type_ids length: " + str(len(token_type_ids)))                    
             classification_logits = net(x, token_type_ids=token_type_ids, attention_mask=attention_mask, Q=None,\
                           e1_e2_start=e1_e2_start)
             
             accuracy, (o, l) = evaluate_(classification_logits, labels, ignore_idx=-1)
-            f.write("o length: " + len(o))   
-            f.write("l length: " + len(l))   
+            logger.info("o length: " + str(len(o)))
+            logger.info("l length: " + str(len(l)))   
             out_labels.append([str(i) for i in o]); true_labels.append([str(i) for i in l])
             acc += accuracy
-            f.write("out_labels length: " + len(out_labels))   
-            f.write("true_labels length: " + len(true_labels))   
+            logger.info("out_labels length: " + str(len(out_labels)))   
+            logger.info("true_labels length: " + str(len(true_labels)))   
     
     accuracy = acc/(i + 1)
     results = {
