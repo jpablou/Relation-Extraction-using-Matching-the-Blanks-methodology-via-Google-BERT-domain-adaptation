@@ -90,7 +90,7 @@ def evaluate_results(net, test_loader, pad_id, cuda):
                 attention_mask = attention_mask.cuda()
                 token_type_ids = token_type_ids.cuda()
 
-            logger.info("labels length: " + len(labels))   
+            logger.info("labels length: " + str(len(labels)))   
             logger.info("attention_mask length: " + str(len(attention_mask)))   
             logger.info("token_type_ids length: " + str(len(token_type_ids)))                    
             classification_logits = net(x, token_type_ids=token_type_ids, attention_mask=attention_mask, Q=None,\
