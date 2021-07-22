@@ -90,21 +90,22 @@ def evaluate_results(net, test_loader, pad_id, cuda):
                 attention_mask = attention_mask.cuda()
                 token_type_ids = token_type_ids.cuda()
 
-            logger.info("labels length: " + str(len(labels)))   
-            logger.info("attention_mask length: " + str(len(attention_mask)))   
-            logger.info("token_type_ids length: " + str(len(token_type_ids)))                    
+            #logger.info("labels length: " + str(len(labels)))   
+            #logger.info("attention_mask length: " + str(len(attention_mask)))   
+            #logger.info("token_type_ids length: " + str(len(token_type_ids)))                    
             classification_logits = net(x, token_type_ids=token_type_ids, attention_mask=attention_mask, Q=None,\
                           e1_e2_start=e1_e2_start)
             
             accuracy, (o, l) = evaluate_(classification_logits, labels, ignore_idx=-1)
-            logger.info("o length: " + str(len(o)))
-            logger.info("l length: " + str(len(l)))   
+            #logger.info("o length: " + str(len(o)))
+            #logger.info("l length: " + str(len(l)))   
             out_labels.append([str(i) for i in o]); true_labels.append([str(i) for i in l])
             acc += accuracy
-            logger.info("out_labels length: " + str(len(out_labels)))   
-            logger.info("true_labels length: " + str(len(true_labels)))   
+ 
     
     accuracy = acc/(i + 1)
+    logger.info("out_labels length: " + str(len(out_labels)))   
+    logger.info("true_labels length: " + str(len(true_labels)))      
     results = {
         "accuracy": accuracy,
         "precision": precision_score(true_labels, out_labels),
