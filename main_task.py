@@ -72,12 +72,13 @@ if __name__ == "__main__":
         total_content += content_file
 
         for row in total_content:
-            sentence = row.split("\n")[0]      
+            sentence = row.split("\n")[0]    
+            actual_relation = row.split("\n")[1]
             #sentence = sentence_and_id.split(' ', 1)[1]
             #sentence = sentence.strip()
             if "[E1]" in sentence and "[E2]" in sentence : 
                 inferer.infer_sentence(sentence, detect_entities=False)
-
+                print("Actual Relation: " + actual_relation)
             #f.write(str(sentence.strip()) + "\n\n")         
     
     #if args.task == 'semeval':
