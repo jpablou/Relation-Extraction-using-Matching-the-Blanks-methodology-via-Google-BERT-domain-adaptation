@@ -72,9 +72,9 @@ if __name__ == "__main__":
         total_content += content_file
 
         for row in total_content:
-            sentence_and_id = row.split("\n")[0]      
-            sentence = sentence_and_id.split(' ', 1)[1]
-            sentence = sentence.strip()
+            sentence = row.split("\n")[0]      
+            #sentence = sentence_and_id.split(' ', 1)[1]
+            #sentence = sentence.strip()
             inferer.infer_sentence(sentence, detect_entities=False)
 
             #f.write(str(sentence.strip()) + "\n\n")         
