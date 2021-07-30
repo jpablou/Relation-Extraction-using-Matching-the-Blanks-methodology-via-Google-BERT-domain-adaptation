@@ -61,6 +61,23 @@ if __name__ == "__main__":
             if sent.lower() in ['quit', 'exit']:
                 break
             inferer.infer_sentence(sent, detect_entities=False)
+
+    if (args.infer == 1) and (args.task == 'test'):        
+        inferer = infer_from_trained(args, detect_entities=True)
+        with open("test-inference.txt", newline='\n', encoding='utf-8') as file_txt:
+            content_file = file_txt.read()
+
+        content_file = content_file.split("\n\n")
+        total_content=[] 
+        total_content += content_file
+
+        for row in total_content:
+            sentence_and_id = row.split("\n")[0]      
+            sentence = sentence_and_id.split(' ', 1)[1]
+            sentence = sentence.strip()
+            inferer.infer_sentence(test, detect_entities=False)
+
+            #f.write(str(sentence.strip()) + "\n\n")         
     
     #if args.task == 'semeval':
         #fewrel = FewRel(args)
