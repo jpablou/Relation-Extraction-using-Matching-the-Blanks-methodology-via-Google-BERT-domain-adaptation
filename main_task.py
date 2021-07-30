@@ -75,7 +75,8 @@ if __name__ == "__main__":
             sentence = row.split("\n")[0]      
             #sentence = sentence_and_id.split(' ', 1)[1]
             #sentence = sentence.strip()
-            inferer.infer_sentence(sentence, detect_entities=False)
+            if "[E1]" in sentence and "[E2]" in sentence : 
+                inferer.infer_sentence(sentence, detect_entities=False)
 
             #f.write(str(sentence.strip()) + "\n\n")         
     
