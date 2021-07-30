@@ -72,7 +72,7 @@ if __name__ == "__main__":
         total_content += content_file
 
         y_true = []
-        y_pred = []   
+        y_pred = []  
 
         for row in total_content:
             sentence = row.split("\n")[0]    
@@ -82,10 +82,11 @@ if __name__ == "__main__":
                 actual_relation = row.split("\n")[1]
                 print("Relation to Predict: " + actual_relation)
                 y_true.append(actual_relation)
-                inferer.infer_sentence(sentence, detect_entities=False)
-                
+                #inferer.infer_sentence(sentence, detect_entities=False)
+                pred = inferer.infer_one_sentence(sentence)
             #f.write(str(sentence.strip()) + "\n\n")         
         print(y_true)
+        print(pred)
     #if args.task == 'semeval':
         #fewrel = FewRel(args)
         #meta_input, e1_e2_start, meta_labels, outputs = fewrel.evaluate()
