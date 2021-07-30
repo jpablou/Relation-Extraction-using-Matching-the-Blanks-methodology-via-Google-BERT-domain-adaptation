@@ -73,11 +73,10 @@ if __name__ == "__main__":
 
         for row in total_content:
             sentence = row.split("\n")[0]    
-            actual_relation = row.split("\n")[1]
-
             #sentence = sentence_and_id.split(' ', 1)[1]
             #sentence = sentence.strip()
             if "[E1]" in sentence and "[E2]" in sentence : 
+                actual_relation = row.split("\n")[1]
                 print("Relation to Predict: " + actual_relation)
                 inferer.infer_sentence(sentence, detect_entities=False)
                 
