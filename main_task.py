@@ -62,7 +62,7 @@ if __name__ == "__main__":
                 break
             inferer.infer_sentence(sent, detect_entities=False)
 
-    if (args.infer == 1) and (args.task == 'test'):        
+    if (args.infer == 2):        
         inferer = infer_from_trained(args, detect_entities=True)
         with open("test-inference.txt", newline='\n', encoding='utf-8') as file_txt:
             content_file = file_txt.read()
