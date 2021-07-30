@@ -83,10 +83,10 @@ if __name__ == "__main__":
                 print("Relation to Predict: " + actual_relation)
                 y_true.append(actual_relation)
                 #inferer.infer_sentence(sentence, detect_entities=False)
-                pred = inferer.infer_one_sentence(sentence)
+                y_pred.append(inferer.infer_one_sentence(sentence))
             #f.write(str(sentence.strip()) + "\n\n")         
         print(y_true)
-        print(pred)
+        print(y_pred)
     #if args.task == 'semeval':
         #fewrel = FewRel(args)
         #meta_input, e1_e2_start, meta_labels, outputs = fewrel.evaluate()
