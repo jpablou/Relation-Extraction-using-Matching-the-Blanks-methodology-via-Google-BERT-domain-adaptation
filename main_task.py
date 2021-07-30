@@ -71,6 +71,9 @@ if __name__ == "__main__":
         total_content=[] 
         total_content += content_file
 
+        y_true = []
+        y_pred = []   
+
         for row in total_content:
             sentence = row.split("\n")[0]    
             #sentence = sentence_and_id.split(' ', 1)[1]
@@ -78,10 +81,11 @@ if __name__ == "__main__":
             if "[E1]" in sentence and "[E2]" in sentence : 
                 actual_relation = row.split("\n")[1]
                 print("Relation to Predict: " + actual_relation)
+                y_true.append(actual_relation)
                 inferer.infer_sentence(sentence, detect_entities=False)
                 
             #f.write(str(sentence.strip()) + "\n\n")         
-    
+        print(y_true)
     #if args.task == 'semeval':
         #fewrel = FewRel(args)
         #meta_input, e1_e2_start, meta_labels, outputs = fewrel.evaluate()
