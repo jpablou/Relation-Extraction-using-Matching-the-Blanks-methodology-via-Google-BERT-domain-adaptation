@@ -227,12 +227,13 @@ class infer_from_trained(object):
 
     def infer_evaluate(self):
         test_pkl = open ("data/df_test.pkl", "rb")
-        pkl_contents = pickle.load(test_pkl)
-        y_true = pkl_contents["relations_id"].tolist()
+        test_pkl_contents = pickle.load(test_pkl)
+        y_true = test_pkl_contents["relations_id"].tolist()
+        test_sentences = test_pkl_contents["sents"].tolist()
 
         y_pred = []
         print(y_true)
-
+        print(test_sentences)
 
 class FewRel(object):
     def __init__(self, args=None):
