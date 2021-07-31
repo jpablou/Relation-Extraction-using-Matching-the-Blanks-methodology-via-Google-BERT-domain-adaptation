@@ -238,7 +238,13 @@ class infer_from_trained(object):
                 pred = self.infer_one_sentence(sent)
                 y_pred.append(pred)
         
-        print(y_pred) 
+        print("Total sentences to be tested: " + str(len(test_sentences)))
+        print("Actual Relations length: " + str(len(y_true)))
+        print("Predicted Relations length: " + str(len(y_pred))) 
+        print("--------------------------")
+
+
+
         #print(y_true)
         #print(test_sentences)
 
