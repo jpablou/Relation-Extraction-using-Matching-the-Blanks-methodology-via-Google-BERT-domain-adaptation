@@ -64,6 +64,8 @@ if __name__ == "__main__":
 
     if (args.infer == 2):        
         inferer = infer_from_trained(args, detect_entities=True)
+        inferer.infer_evaluate()
+
     #if args.task == 'semeval':
         #fewrel = FewRel(args)
         #meta_input, e1_e2_start, meta_labels, outputs = fewrel.evaluate()
