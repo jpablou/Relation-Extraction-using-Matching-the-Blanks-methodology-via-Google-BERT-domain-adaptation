@@ -226,7 +226,10 @@ class infer_from_trained(object):
             return self.infer_one_sentence(sentence)
 
     def infer_evaluate(self):
-        y_true = self.test_loader["relations_id"].tolist()
+        test_pkl = open ("data/df_test.pkl", "rb")
+        pkl_contents = pickle.load(test_pkl)
+        y_true = pkl_contents["relations_id"].tolist()
+
         y_pred = []
         print(y_true)
 
