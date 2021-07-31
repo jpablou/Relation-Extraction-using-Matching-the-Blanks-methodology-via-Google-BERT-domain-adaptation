@@ -232,8 +232,15 @@ class infer_from_trained(object):
         test_sentences = test_pkl_contents["sents"].tolist()
 
         y_pred = []
-        print(y_true)
-        print(test_sentences)
+
+        if test_sentences != None:
+            for sent in test_sentences:
+                pred = self.infer_one_sentence(sent)
+                y_pred.append(pred)
+        
+        print(y_pred)    
+        #print(y_true)
+        #print(test_sentences)
 
 class FewRel(object):
     def __init__(self, args=None):
