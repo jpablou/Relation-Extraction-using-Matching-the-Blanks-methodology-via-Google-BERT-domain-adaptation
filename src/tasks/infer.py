@@ -242,11 +242,8 @@ class infer_from_trained(object):
         print("Actual Relations length: " + str(len(y_true)))
         print("Predicted Relations length: " + str(len(y_pred))) 
         print("--------------------------")
-
-
-
-        #print(y_true)
-        #print(test_sentences)
+        print(y_true)
+        print(y_pred)
 
 class FewRel(object):
     def __init__(self, args=None):
