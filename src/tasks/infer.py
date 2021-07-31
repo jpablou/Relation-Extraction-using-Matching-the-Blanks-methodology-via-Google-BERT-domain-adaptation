@@ -225,6 +225,12 @@ class infer_from_trained(object):
         else:
             return self.infer_one_sentence(sentence)
 
+    def infer_evaluate(self):
+        y_true = self.test_loader["relations_id"].tolist()
+        y_pred = []
+        print(y_true)
+
+
 class FewRel(object):
     def __init__(self, args=None):
         if args is None:

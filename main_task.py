@@ -64,27 +64,11 @@ if __name__ == "__main__":
 
     if (args.infer == 2):        
         inferer = infer_from_trained(args, detect_entities=True)
-        with open("test-inference.txt", newline='\n', encoding='utf-8') as file_txt:
-            content_file = file_txt.read()
-
-        content_file = content_file.split("\n\n")
-        total_content=[] 
-        total_content += content_file
 
         y_true = []
         y_pred = []  
 
-        for row in total_content:
-            sentence = row.split("\n")[0]    
-            #sentence = sentence_and_id.split(' ', 1)[1]
-            #sentence = sentence.strip()
-            if "[E1]" in sentence and "[E2]" in sentence : 
-                actual_relation = row.split("\n")[1]
-                print("Relation to Predict: " + actual_relation)
-                y_true.append(actual_relation)
-                #inferer.infer_sentence(sentence, detect_entities=False)
-                y_pred.append(inferer.infer_one_sentence(sentence))
-            #f.write(str(sentence.strip()) + "\n\n")         
+        
         print(y_true)
         print(y_pred)
     #if args.task == 'semeval':
