@@ -250,7 +250,7 @@ class infer_from_trained(object):
         #print(precision_score(y_true, y_pred, average="macro"))
         #print(recall_score(y_true, y_pred, average="macro"))
         target_names = ['class 0', 'class 1', 'class 2', 'class 4']
-        print(classification_report(y_true, y_pred, target_names=target_names))
+        print(classification_report(y_true, y_pred, labels=['Part of', 'Hypernym', 'Color', 'Shape', 'Material']))
 
 class FewRel(object):
     def __init__(self, args=None):
