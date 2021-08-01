@@ -21,6 +21,7 @@ import logging
 from sklearn.metrics import f1_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
+from sklearn.metrics import classification_report
 
 tqdm.pandas(desc="prog-bar")
 logging.basicConfig(format='%(asctime)s [%(levelname)s]: %(message)s', \
@@ -245,10 +246,10 @@ class infer_from_trained(object):
         print("Actual Relations length: " + str(len(y_true)))
         print("Predicted Relations length: " + str(len(y_pred))) 
         print("--------------------------")
-        print(f1_score(y_true, y_pred, average="macro"))
-        print(precision_score(y_true, y_pred, average="macro"))
-        print(recall_score(y_true, y_pred, average="macro"))
-
+        #print(f1_score(y_true, y_pred, average="macro"))
+        #print(precision_score(y_true, y_pred, average="macro"))
+        #print(recall_score(y_true, y_pred, average="macro"))
+        print(classification_report(y_true, y_pred, target_names=target_names))
 
 class FewRel(object):
     def __init__(self, args=None):
