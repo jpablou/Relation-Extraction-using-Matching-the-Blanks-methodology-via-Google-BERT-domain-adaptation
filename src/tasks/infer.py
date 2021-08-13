@@ -235,6 +235,8 @@ class infer_from_trained(object):
         test_pkl_contents = pickle.load(test_pkl)
         y_true = test_pkl_contents["relations_id"].tolist()
         test_sentences = test_pkl_contents["sents"].tolist()
+        print("Total sentences to be tested for inference: " + str(len(test_sentences)))
+        print("Actual Relations Ids length: " + str(len(y_true)))
 
         y_pred = []
 
@@ -242,10 +244,8 @@ class infer_from_trained(object):
             for sent in test_sentences:
                 pred = self.infer_one_sentence(sent)
                 y_pred.append(pred)
-        
-        print("Total sentences to be tested: " + str(len(test_sentences)))
-        print("Actual Relations length: " + str(len(y_true)))
-        print("Predicted Relations length: " + str(len(y_pred))) 
+    
+        print("Predicted Relations Ids length: " + str(len(y_pred))) 
         print("--------------------------")
         #print(f1_score(y_true, y_pred, average="macro"))
         #print(precision_score(y_true, y_pred, average="macro"))
