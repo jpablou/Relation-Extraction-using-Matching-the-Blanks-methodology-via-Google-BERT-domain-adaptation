@@ -235,8 +235,8 @@ class infer_from_trained(object):
         test_pkl_contents = pickle.load(test_pkl)
         y_true = test_pkl_contents["relations_id"].tolist()
         test_sentences = test_pkl_contents["sents"].tolist()
-        print("Total sentences to be tested for inference: " + str(len(test_sentences)))
-        print("Actual Relations Ids length: " + str(len(y_true)))
+        logger.info("Total sentences to be tested for inference: " + str(len(test_sentences)))
+        logger.info("Actual Relations Ids length: " + str(len(y_true)))
 
         y_pred = []
 
@@ -245,13 +245,13 @@ class infer_from_trained(object):
                 pred = self.infer_one_sentence(sent)
                 y_pred.append(pred)
     
-        print("Predicted Relations Ids length: " + str(len(y_pred))) 
-        print("--------------------------")
+        logger.info("Predicted Relations Ids length: " + str(len(y_pred))) 
+        logger.info("--------------------------")
         #print(f1_score(y_true, y_pred, average="macro"))
         #print(precision_score(y_true, y_pred, average="macro"))
         #print(recall_score(y_true, y_pred, average="macro"))
         target_names = ['Part Of', 'Hypernym', 'Color', 'Material', 'Shape']
-        print(classification_report(y_true, y_pred, target_names=target_names))
+        logger.info(classification_report(y_true, y_pred, target_names=target_names))
 
 class FewRel(object):
     def __init__(self, args=None):
