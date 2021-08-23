@@ -269,8 +269,9 @@ class infer_from_trained(object):
         sns.heatmap(cf_matrix/np.sum(cf_matrix), annot=True, 
             fmt='.2%', cmap='Blues')
         '''
-        sns.heatmap(cf_matrix, linewidths=1, annot=True, fmt='.2%', cmap='Blues')
-
+        svm = sns.heatmap(cf_matrix, linewidths=1, annot=True, fmt='.2%', cmap='Blues')
+        heatmap_figure = svm.get_figure()    
+        heatmap_figure.savefig('heatmap_figure.png', dpi=300)
 
 class FewRel(object):
     def __init__(self, args=None):
