@@ -21,7 +21,7 @@ import logging
 from sklearn.metrics import f1_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, confusion_matrix
 #from scipy.special import comb
 
 tqdm.pandas(desc="prog-bar")
@@ -250,8 +250,9 @@ class infer_from_trained(object):
         #print(f1_score(y_true, y_pred, average="macro"))
         #print(precision_score(y_true, y_pred, average="macro"))
         #print(recall_score(y_true, y_pred, average="macro"))
-        target_names = ['Part Of', 'Hypernym', 'Color', 'Material', 'Shape']
+        target_names = ['Meronymy', 'Hypernym', 'Color', 'Material', 'Shape']
         logger.info(classification_report(y_true, y_pred, target_names=target_names))
+        logger.info(confusion_matrix(y_true, y_pred))
 
 class FewRel(object):
     def __init__(self, args=None):
