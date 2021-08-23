@@ -12,6 +12,7 @@ import pandas as pd
 import torch
 import spacy
 import re
+import seaborn as sns
 from itertools import permutations
 from tqdm import tqdm
 from .preprocessing_funcs import load_dataloaders
@@ -252,7 +253,21 @@ class infer_from_trained(object):
         #print(recall_score(y_true, y_pred, average="macro"))
         target_names = ['Meronymy', 'Hypernym', 'Color', 'Material', 'Shape']
         logger.info(classification_report(y_true, y_pred, target_names=target_names))
-        logger.info(confusion_matrix(y_true, y_pred))
+        
+        cf_matrix = confusion_matrix(y_true, y_pred)
+
+        group_names = [‘True Neg’,’False Pos’,’False Neg’,’True Pos’]
+        group_counts = [“{0:0.0f}”.format(value) for value in
+                        cf_matrix.flatten()]
+        group_percentages = [“{0:.2%}”.format(value) for value in
+                            cf_matrix.flatten()/np.sum(cf_matrix)]
+        labels = [f”{v1}\n{v2}\n{v3}” for v1, v2, v3 in
+                zip(group_names,group_counts,group_percentages)]
+        labels = np.asarray(labels).reshape(2,2)
+        sns.heatmap(cf_matrix, annot=labels, fmt=‘’, cmap='Blues')
+
+        sns.heatmap(cf_matrix/np.sum(cf_matrix), annot=True, 
+            fmt='.2%', cmap='Blues')
 
 class FewRel(object):
     def __init__(self, args=None):
