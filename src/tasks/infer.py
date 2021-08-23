@@ -255,7 +255,7 @@ class infer_from_trained(object):
         logger.info(classification_report(y_true, y_pred, target_names=target_names))
         
         cf_matrix = confusion_matrix(y_true, y_pred)
-
+        '''
         group_names = ['True Neg','False Pos','False Neg','True Pos']
         group_counts = ["{0:0.0f}".format(value) for value in
                         cf_matrix.flatten()]
@@ -268,6 +268,9 @@ class infer_from_trained(object):
 
         sns.heatmap(cf_matrix/np.sum(cf_matrix), annot=True, 
             fmt='.2%', cmap='Blues')
+        '''
+        sns.heatmap(cf_matrix, linewidths=1, annot=True, fmt='.2%', cmap='Blues')
+
 
 class FewRel(object):
     def __init__(self, args=None):
